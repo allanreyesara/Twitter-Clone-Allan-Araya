@@ -29,15 +29,15 @@ export const followUnfollowUser = async (req, res) => {
             return res.status(400).json({ error: "You cannot follow/unfollow yourself" })
         }
 
-        if(!userToModify || !currentUser)  return res.status(400).json({ error: "User not found"})
+        if(!userToModify || !currentUser)  return res.status(404).json({ error: "User not found"})
 
 
         const isFollowing = currentUser.following.includes(id);
 
         if(isFollowing){
             //Unfollow
-            await User.findByIdAndUpdate(id, { $pulll: { followers: req.user._id }})
-            await User.findByIdAndUpdate(req.user._id, { $pull: { following: id }})
+            await User.findByIdAndUpdate(id, { $pulll: { followers: req.user._id }}) 
+            await User.findByIdAndUpdate(req.user._id, { $pull: { following: id }})  
             res.status(200).json({ message: "User unfollowed succesfully" })
         }else{
             //Follow
@@ -54,12 +54,9 @@ export const followUnfollowUser = async (req, res) => {
             
             res.status(200).json({ message: "User followed succesfully" })
         }
-
-
     } catch (err) {
         console.log("Error in followUnfollowUser: ", err.message)
         res.status(500).json({ error: "Internal server error "})
-
     }
 }
 
