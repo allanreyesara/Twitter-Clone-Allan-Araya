@@ -12,9 +12,11 @@ import LoadingSpinner from "./LoadingSpinner";
 
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
+	const { data:authUser } = useQuery({ queryKey: ["authUser"] });
 	const postOwner = post.user;
 	const isLiked = false;
-	const { data:authUser } = useQuery({ queryKey: ["authUser"] });
+	const isMyPost = authUser._id === post.user._id;
+
 	const queryClient = useQueryClient();
 	const { mutate:deletePost, isPending } = useMutation({
 		mutationFn: async () => {
@@ -24,7 +26,6 @@ const Post = ({ post }) => {
 				})
 	
 				const data = await res.json();
-
 				if(!res.ok){
 					throw new Error( data.error ||"Something went wrong");
 					
@@ -39,8 +40,6 @@ const Post = ({ post }) => {
 			queryClient.invalidateQueries({ queryKey: ["posts"]});
 		}
 	})
-
-	const isMyPost = authUser._id === post.user._id;
 
 	const formattedDate = "1h";
 
@@ -76,7 +75,7 @@ const Post = ({ post }) => {
 						</span>
 						{isMyPost && (
 							<span className='flex justify-end flex-1'>
-								{isPending && <FaTrash className='cursor-pointer hover:text-red-500' onClick={handleDeletePost} />}
+								<FaTrash className='cursor-pointer hover:text-red-500' onClick={handleDeletePost} />
 
 								{isPending && (
 									<LoadingSpinner size="sm"/>
