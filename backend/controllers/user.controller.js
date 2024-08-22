@@ -80,7 +80,7 @@ export const getSuggestedUsers = async (req, res) => {
 
         suggestedUsers.forEach((user) => (user.password = null));
 
-        res.status(200).json({ suggestedUsers })
+        res.status(200).json( suggestedUsers )
     } catch (err){
         console.log("Error in suggestion: ", err.message);
         res.status(500).json({ err: err.message});
