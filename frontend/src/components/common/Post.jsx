@@ -9,7 +9,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import LoadingSpinner from "./LoadingSpinner";
-//import { formatPostDate } from "../../utils/date";
+import { formatPostDate } from "../../utils/date/functions";
 
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
@@ -20,7 +20,7 @@ const Post = ({ post }) => {
 
 	const isMyPost = authUser._id === post.user._id;
 
-	//const formattedDate = formatPostDate(post.createdAt);
+	const formattedDate = formatPostDate(post.createdAt);
 
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
@@ -74,7 +74,7 @@ const Post = ({ post }) => {
 		},
 	});
 
-	const { mutate: commentPost, isPending: isCommenting } = useMutation({
+	const {mutate: commentPost, isPending: isCommenting } = useMutation({
 		mutationFn: async () => {
 			try {
 				const res = await fetch(`/api/posts/comment/${post._id}`, {
@@ -82,28 +82,25 @@ const Post = ({ post }) => {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ text: comment }),
-				});
+					body: JSON.stringify({ text: comment})
+				})
 				const data = await res.json();
-
-				if (!res.ok) {
+				if(!res.ok){
 					throw new Error(data.error || "Something went wrong");
 				}
 				return data;
 			} catch (error) {
-				throw new Error(error);
+				throw new Error(error);	
 			}
+			
 		},
 		onSuccess: () => {
-			toast.success("Comment posted successfully");
-			setComment("");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
-		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
-	});
-
+			toast.success("Comment posted")
+			setComment("")
+			queryClient.invalidateQueries({ queryKey: ["posts"]})
+		}
+		
+	})
 	const handleDeletePost = () => {
 		deletePost();
 	};
@@ -135,6 +132,7 @@ const Post = ({ post }) => {
 						<span className='text-gray-700 flex gap-1 text-sm'>
 							<Link to={`/profile/${postOwner.username}`}>@{postOwner.username}</Link>
 							<span>·</span>
+							<span>{formattedDate}</span>
 							
 						</span>
 						{isMyPost && (

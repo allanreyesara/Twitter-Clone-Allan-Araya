@@ -82,7 +82,6 @@ export const commentOnPost = async (req, res) => {
 
         post.comments.push(comment);
         await post.save();
-
         res.status(200).json({ post })
     } catch (err){
         console.log("Error in coomentOnPost: ", err); 
