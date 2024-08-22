@@ -32,7 +32,7 @@ export const createPost = async (req, res) => {
         })
 
         await newPost.save();
-        res.status(201).json({newPost});
+        res.status(201).json(newPost);
 
     } catch (err){
         console.log("Error in createPost: ", err); 
@@ -82,7 +82,7 @@ export const commentOnPost = async (req, res) => {
 
         post.comments.push(comment);
         await post.save();
-        res.status(200).json({ post })
+        res.status(200).json( post )
     } catch (err){
         console.log("Error in coomentOnPost: ", err); 
         res.status(500).json({ err: "Internal server error"})
@@ -168,7 +168,7 @@ export const getLikedPosts = async (req, res) => {
             select: "-password"
         })
 
-        res.status(200).json({likedPosts})
+        res.status(200).json(likedPosts)
     } catch(errr) {
         console.log("Error in getLikedPosts: ", err); 
         res.status(500).json({ err: "Internal server error"})
