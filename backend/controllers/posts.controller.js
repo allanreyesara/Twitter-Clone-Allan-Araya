@@ -141,7 +141,7 @@ export const getAllPosts = async (req, res) => {
             return res.status(200).json([]);
         }
 
-        res.status(200).json({posts});
+        res.status(200).json(posts);
     } catch (err) {
         console.log("Error in getAllPosts: ", err); 
         res.status(500).json({ err: "Internal server error"})
