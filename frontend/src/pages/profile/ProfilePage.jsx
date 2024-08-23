@@ -11,18 +11,16 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query";
 import { formatMemberSinceDate } from "../../utils/date/functions";
 
 import useFollow from "../../hooks/usefollow";
-import toast from "react-hot-toast";
+import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 
 const ProfilePage = () => {
 	const [coverImg, setCoverImg] = useState(null);
 	const [profileImg, setProfileImg] = useState(null);
 	const [feedType, setFeedType] = useState("posts");
-
-	const queryClient = useQueryClient();
 
 	const coverImgRef = useRef(null);
 	const profileImgRef = useRef(null);
@@ -45,43 +43,13 @@ const ProfilePage = () => {
 			}
 		}
 
-	})
+	});
 
-	const {mutate: updateProfile, isPending: isUpdatingProfile} = useMutation({
-		mutationFn: async () =>{
-			try {
-				const res = await fetch(`/auth/users/update`, {
-					method: "POST",
-					headers:{
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						coverImg,
-						profileImg
-					}),
-				})
-				const data = await res.json()
-				if(!res.ok) throw new Error(data.error || "Something went wrong");
-				return data;
-			} catch (error) {
-				throw new Error(error.message);
-			}
-		},
-		onSuccess: () => {
-			toast.success("Profile updated")
-			Promise.all([
-				queryClient.invalidateQueries({ queryKey: ["authUser"]}),
-				queryClient.invalidateQueries({ queryKey: ["userProfile"]})
-			])
-		},
-		onError: (error) =>{
-			toast.error(error.message)
-		}
-	})
+	const isMyProfile = authUser._id === user?._id;
 
-	useEffect(() => {
-		refetch();
-	}, [username, refetch, username])
+	const {isUpdatingProfile, updateProfile} = useUpdateUserProfile();
+	const memberSinceDate = formatMemberSinceDate(user?.updatedAt)
+	const amIFollowing = authUser?.following.includes(user?._id)
 
 	const handleImgChange = (e, state) => {
 		const file = e.target.files[0];
@@ -95,10 +63,13 @@ const ProfilePage = () => {
 		}
 	};
 
-	const isMyProfile = authUser._id === user?._id;
-	const amIFollowing = authUser?.following.includes(user?._id)
+	useEffect(() => {
+		refetch();
+	}, [username, refetch])
 
-	const memberSinceDate = formatMemberSinceDate(user?.updatedAt)
+
+
+
 
 	return (
 		<>
@@ -117,7 +88,6 @@ const ProfilePage = () => {
 									<span className='text-sm text-slate-500'>{POSTS?.length} posts</span>
 								</div>
 							</div>
-							{/* COVER IMG */}
 							<div className='relative group/cover'>
 								<img
 									src={coverImg || user?.coverImg || "/cover.png"}
@@ -147,7 +117,6 @@ const ProfilePage = () => {
 									ref={profileImgRef}
 									onChange={(e) => handleImgChange(e, "profileImg")}
 								/>
-								{/* USER AVATAR */}
 								<div className='avatar absolute -bottom-16 left-4'>
 									<div className='w-32 rounded-full relative group/avatar'>
 										<img src={profileImg || user?.profileImg || "/avatar-placeholder.png"} />
@@ -177,7 +146,11 @@ const ProfilePage = () => {
 								{(coverImg || profileImg) && (
 									<button
 										className='btn btn-primary rounded-full btn-sm text-white px-4 ml-2'
-										onClick={() => updateProfile()}
+										onClick={async () => {
+											await updateProfile({coverImg, profileImg});
+											setProfileImg(null);
+											setCoverImg(null);
+										}}
 									>
 										{isUpdatingProfile ? "Updating..." : "Update"}
 									</button>

@@ -1,10 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 
-const EditProfileModal = (authUser) => {
+const EditProfileModal = ({authUser}) => {
 
-	const queryClient = useQueryClient();
 	const [formData, setFormData] = useState({
 		fullName: "",
 		username: "",
@@ -15,28 +13,7 @@ const EditProfileModal = (authUser) => {
 		currentPassword: "",
 	});
 
-	const {mutate: updateProfile, isPending: isUpdating} = useMutation({
-		mutationFn: async () =>{
-			const res = await fetch(`/api/users/update`,{
-				method: "POST",
-				headers: {
-					"Content-Type" : "application/json",
-				},
-				body: JSON.stringify(formData) 
-			})
-			const data = await res.json();
-			if(!res.ok) throw new Error(data.error || "Something went wrong");
-			return data;
-		},
-		onSuccess: () => {
-			toast.success("Profile updated")
-			queryClient.invalidateQueries({queryKey: ["authUser"]}),
-			queryClient.invalidateQueries({queryKey: ["userProfile"]})	
-		},
-		onError: (error) => {
-			toast.error(error)
-		}
-	})
+	const { updateProfile, isUpdating } = useUpdateUserProfile();
 
 	const handleInputChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -54,7 +31,7 @@ const EditProfileModal = (authUser) => {
 				currentPassword: ""
 			})
 		}
-	}, [authUser])
+	}, [authUser]);
 
 	return (
 		<>
@@ -135,7 +112,9 @@ const EditProfileModal = (authUser) => {
 							name='link'
 							onChange={handleInputChange}
 						/>
-						<button className='btn btn-primary rounded-full btn-sm text-white'>Update</button>
+						<button className='btn btn-primary rounded-full btn-sm text-white'>
+							{isUpdating ? "Updating..." : "Update"}
+						</button>
 					</form>
 				</div>
 				<form method='dialog' className='modal-backdrop'>
