@@ -1,9 +1,10 @@
-#Twitter Clone using MERN. 
+# Twitter Clone using MERN. 
 
-##You can access the live page [here](https://twitter-clone-allan-araya.onrender.com):   
+## You can access the live page [here](https://twitter-clone-allan-araya.onrender.com):   
 
 https://twitter-clone-allan-araya.onrender.com
 
+## Skills used in the project:
 
 ⚛️ Tech Stack: React.js, MongoDB, Node.js, Express, Tailwind
 
