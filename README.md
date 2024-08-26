@@ -1,6 +1,6 @@
 # Twitter Clone using MERN. 
 
-## You can access the live page [here](https://twitter-clone-allan-araya.onrender.com):   
+## You can access the live page [here](https://twitter-clone-allan-araya.onrender.com), loading can take a minute or two since the server has to initialize:   
 
 https://twitter-clone-allan-araya.onrender.com
 
