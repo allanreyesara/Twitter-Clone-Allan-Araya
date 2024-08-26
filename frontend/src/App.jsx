@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
 
-import Sidebar from "./components/common/sidebar"
+import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel"
 import LoadingSpinner from "./components/common/LoadingSpinner"
 
