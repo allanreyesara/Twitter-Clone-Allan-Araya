@@ -1,4 +1,8 @@
-Twitter Clone using MERN. You can access the live page here:   https://twitter-clone-allan-araya.onrender.com
+#Twitter Clone using MERN. 
+
+##You can access the live page [here](https://twitter-clone-allan-araya.onrender.com):   
+
+https://twitter-clone-allan-araya.onrender.com
 
 
 ⚛️ Tech Stack: React.js, MongoDB, Node.js, Express, Tailwind
