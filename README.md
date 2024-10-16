@@ -21,7 +21,7 @@ npm install && npm install --prefix frontend && npm run build --prefix frontend
 
 # Database setup
 
-You will need accounts in `https://mongodb.com` and `https://cloudinary.com/` the you need to create an .env file in the root folder with this format:
+You will need accounts in `https://mongodb.com` and `https://cloudinary.com/` then you need to create an .env file in the root folder with this format:
 
 ```
 MONGO_URI=<MONGO_URI>
