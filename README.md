@@ -40,17 +40,18 @@ CLOUDINARY_API_SECRET=<CLOUDINARY_API_SECRET>
 cd frontend
 ```
 ```
-ng serve --open
+npm run dev
 ```
 
 # Backend
 
 ```
-cd API
+cd backend
 ```
 ```
-nodemon start
+npm start
 ```
+
 
 
 
