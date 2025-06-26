@@ -1,56 +1,113 @@
-Twitter Clone using MERN.
-You can access the live page here, loading can take a minute or two since the server has to initialize:
-https://twitter-clone-allan-araya.onrender.com
+# 🐦 Twitter Clone - Allan Araya
 
-Setup
--Clone the code
+A full-featured Twitter clone built using the **MERN** stack.
 
-git clone allanreyesara/Twitter-Clone-Allan-Araya
--Build
+🌐 **Live Demo**: [twitter-clone-allan-araya.onrender.com](https://twitter-clone-allan-araya.onrender.com)  
+_(Please allow a minute or two for the server to initialize)_
 
-npm install && npm install --prefix frontend && npm run build --prefix frontend
--Start
+---
 
-Database setup
-You will need accounts in https://mongodb.com and https://cloudinary.com/ then you need to create an .env file in the root folder with this format:
+## 🚀 Features
 
-MONGO_URI=<MONGO_URI>
-PORT=<PORT:5000>
-JWT_SECRET=<JWT_SECRET>
+- 🧑‍🤝‍🧑 Suggested Users to Follow
+- ✍️ Create and Delete Posts (only by owner)
+- 💬 Comment on Posts
+- ❤️ Like Posts
+- 📝 Edit Profile Info
+- 🖼️ Upload Cover and Profile Images (Cloudinary)
+- 🔐 JWT Authentication
+- 🔔 Notifications
+- ⚛️ Frontend: React + Tailwind + React Query
+- 🔧 Backend: Node.js + Express + MongoDB
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend:** React.js, Tailwind CSS, React Query
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB Atlas
+- **Auth:** JSON Web Tokens (JWT)
+- **Image Hosting:** Cloudinary
+
+---
+
+## 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/allanreyesara/Twitter-Clone-Allan-Araya.git
+cd Twitter-Clone-Allan-Araya
+
+# Install dependencies
+npm install && npm install --prefix frontend
+
+# Build frontend
+npm run build --prefix frontend
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the root directory with the following values:
+
+```env
+MONGO_URI=<your_mongo_uri>
+PORT=5000
+JWT_SECRET=<your_jwt_secret>
 NODE_ENV=development
 
-CLOUDINARY_CLOUD_NAME=<CLOUDINARY_CLOUD_NAME>
-CLOUDINARY_CLOUD_KEY=<CLOUDINARY_CLOUD_KEY>
-CLOUDINARY_API_SECRET=<CLOUDINARY_API_SECRET>
-FrontEnd
+CLOUDINARY_CLOUD_NAME=<your_cloudinary_name>
+CLOUDINARY_CLOUD_KEY=<your_cloudinary_key>
+CLOUDINARY_API_SECRET=<your_cloudinary_secret>
+```
+
+---
+
+## 🖥️ Running the App
+
+### Frontend
+```bash
 cd frontend
 npm run dev
-Backend
+```
+
+### Backend
+```bash
 cd backend
 npm start
-Skills used in the project:
-⚛️ Tech Stack: React.js, MongoDB, Node.js, Express, Tailwind
+```
 
-🔐 Authentication with JSONWEBTOKENS (JWT)
+---
 
-🔥 React Query for Data Fetching, Caching etc.
+## 📚 Skills Demonstrated
 
-👥 Suggested Users to Follow
+- Full-Stack Web Development (MERN)
+- REST API Design
+- Secure Authentication and Authorization (JWT)
+- File Uploads with Cloudinary
+- State Management with React Query
+- Component Styling with Tailwind CSS
+- Responsive UI and UX
+- Deployment with Render
 
-✍️ Creating Posts
+---
 
-🗑️ Deleting Posts
+## 🤝 Contributing
 
-💬 Commenting on Posts
+Contributions are welcome! Feel free to fork this project and submit pull requests.
 
-❤️ Liking Posts
+---
 
-🔒 Delete Posts (if you are the owner)
+## 📄 License
 
-📝 Edit Profile Info
+This project is open source under the [MIT License](LICENSE).
 
-🖼️ Edit Cover Image and Profile Image
+---
 
-📷 Image Uploads using Cloudinary
+## 📬 Contact
 
-🔔 Send Notifications
+Built with 💙 by **Allan Araya**  
+[GitHub](https://github.com/allanreyesara)
+
