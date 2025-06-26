@@ -2,9 +2,6 @@
 
 A full-featured Twitter clone built using the **MERN** stack.
 
-🌐 **Live Demo**: [twitter-clone-allan-araya.onrender.com](https://twitter-clone-allan-araya.onrender.com)  
-_(Please allow a minute or two for the server to initialize)_
-
 ---
 
 ## 🚀 Features
